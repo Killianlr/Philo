@@ -6,7 +6,7 @@
 #    By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 13:33:25 by kle-rest          #+#    #+#              #
-#    Updated: 2023/10/26 14:19:01 by kle-rest         ###   ########.fr        #
+#    Updated: 2023/10/31 14:10:47 by kle-rest         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ SOURCES = main.c \
 			atoi.c \
 			philo.c \
 			print.c \
+			utiles.c \
+			dinner.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 

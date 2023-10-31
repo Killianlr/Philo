@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:44:14 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/10/26 13:58:42 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:57:21 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_check_int(int ac, char **av)
 	ac--;
 	while (ac > 1)
 	{
-		if (ft_strlen(av[ac]) > 19)
+		if (ft_strlen(av[ac]) > 9)
 			return (0);
 		ac--;
 	}
