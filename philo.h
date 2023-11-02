@@ -43,12 +43,13 @@ typedef struct s_data
 typedef struct s_philo
 {
 	struct s_data	*data;
-	pthread_t		t1;
+	pthread_t		th;
 	int				id;
 	int				eat_count;
 	int				status;
 	int				eating;
 	long int		time_to_die;
+	long int		start;
 	pthread_mutex_t	lock;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
@@ -58,12 +59,18 @@ typedef struct s_philo
 int	ft_is_number(char **av);
 int	ft_check_int(int ac, char **av);
 long	int	ft_atoi_long(const char *nptr);
-void	set_data(t_data *data, int ac, char **av);
+void	init_data(t_data *data, int ac, char **av);
 void	print_info(t_data *data, t_philo *philo);
-void	gettime();
+void	gettime(void);
 t_philo	*create_philo(t_data *data, t_philo *philo);
-int		start_dinner(t_philo *philo);
+void	*start_dinner(void *arg);
 int		init_mutex(t_data *data);
+int    free_mutex(t_data *data, char *msg);
+int    free_data(t_data *data, char *msg);
+int    free_philo(t_data *data, t_philo *philo, char *msg);
+int		init_thread(t_data *data);
+long	int	get_time(void);
+
 
 
 

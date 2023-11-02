@@ -12,15 +12,10 @@
 
 # include "philo.h"
 
-// void	gettime()
-// {
-// 	struct timeval start;
-// 	struct timeval end;
-// 	long	int	diff;
+long	int	get_time(void)
+{
+	struct timeval start;
 
-// 	gettimeofday(&start, NULL);
-// 	usleep(10000);
-// 	gettimeofday(&end, NULL);
-// 	diff = (end.tv_usec - start.tv_usec) * 1e-3;
-// 	printf("diff time = %d\n", (end.tv_usec - start.tv_usec) * 1e-3);
-// }
+	gettimeofday(&start, NULL);
+	return (start.tv_sec * 1000 + start.tv_usec / 1000);
+}

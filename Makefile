@@ -19,6 +19,7 @@ SOURCES = main.c \
 			print.c \
 			utiles.c \
 			dinner.c \
+			error.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 
@@ -37,5 +38,7 @@ fclean: clean
 		rm -f $(NAME)
 
 re: clean all
+
+e: all clean
 
 .PHONY: all clean fclean re

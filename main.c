@@ -12,6 +12,23 @@
 
 # include "philo.h"
 
+void	tamere(void)
+{
+	struct timeval start;
+	struct timeval end;
+	long	int	diff;
+
+	gettimeofday(&start, NULL);
+	usleep(10000);
+	gettimeofday(&end, NULL);
+	diff = (end.tv_usec - start.tv_usec) * 1e-3;
+	printf("diff time = %ld\n", diff);
+	printf("start sec = %ld\n", start.tv_sec);
+	printf("end sec = %ld\n", end.tv_sec);
+	printf("start usec = %ld\n", start.tv_usec);
+	printf("end usec = %ld\n", end.tv_usec);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	*data;
@@ -26,24 +43,20 @@ int	main(int ac, char **av)
 	data = (t_data *)malloc(sizeof(t_data));
 	if(!data)
 		return (printf("error malloc data\n"));
-	set_data(data, ac, av);
+	init_data(data, ac, av);
 	if (!init_mutex(data))
-	{
-		return (1);
-	}
+		return (free_mutex(data, "error mutex\n"));
 	philo = malloc(sizeof(t_philo));
 	if (!philo)
-	{
-		return (1);
-	}
+		return (free_data(data, "error malloc philo\n"));
 	philo = create_philo(data, philo);
 	if (!philo)
-	{
-		return (1);
-	}
+		return (free_philo(data, philo, "error malloc philo\n"));
 	print_info(data, philo);
-	if (!start_dinner(philo))
-		printf("someone just die\n");
-	// gettime();
+	if (!init_thread(data))
+		return (1);
+	// tamere();
+	// if (!start_dinner(philo))
+	// 	printf("someone just die\n");
 	return (0);
 }
