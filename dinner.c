@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 14:09:57 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/11/07 12:36:23 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:15:52 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,12 @@ long int	eating(t_philo *philo, long int death_time)
 	if (checkdeath(death_time, curenttime(philo->start)) == 1)
 	{
 		death_time = -1;
+		philo->data->dead = 0;
+		pthread_mutex_lock(&philo->data->write);
 		printf("%ldms \033[90mphilo %d \033[91mdied\033[0m\n", curenttime(philo->start), philo->id);
+		pthread_mutex_unlock(&philo->data->write);
 	}
-	if (death_time != -1)
+	if (death_time != -1 && philo->data->dead)
 	{
 		philo->eat_count ++;
 		pthread_mutex_lock(&philo->data->write);
@@ -52,9 +55,12 @@ long int	sleeping(t_philo *philo, long int death_time)
 	if (checkdeath(death_time, curenttime(philo->start)) == 1)
 	{
 		death_time = -1;
+		philo->data->dead = 0;
+		pthread_mutex_lock(&philo->data->write);
 		printf("%ldms \033[90mphilo %d \033[91mdied\033[0m\n", curenttime(philo->start), philo->id);
+		pthread_mutex_unlock(&philo->data->write);
 	}
-	if (death_time != -1)
+	if (death_time != -1 && philo->data->dead)
 	{
 		pthread_mutex_lock(&philo->data->write);
 		printf("%ldms \033[90mphilo %d \033[94mis sleeping\033[0m time to die %ld\n", curenttime(philo->start), philo->id, death_time);
@@ -70,9 +76,12 @@ long int	thinking(t_philo *philo, long int death_time)
 	if (checkdeath(death_time, curenttime(philo->start)) == 1)
 	{
 		death_time = -1;
+		philo->data->dead = 0;
+		pthread_mutex_lock(&philo->data->write);
 		printf("%ldms \033[90mphilo %d \033[91mdied\033[0m\n", curenttime(philo->start), philo->id);
+		pthread_mutex_unlock(&philo->data->write);
 	}
-	if (death_time != -1)
+	if (death_time != -1 && philo->data->dead)
 	{
 		pthread_mutex_lock(&philo->data->write);
 		printf("%ldms \033[90mphilo %d \033[95mis thinking\033[0m time to die %ld\n", curenttime(philo->start), philo->id, death_time);
@@ -98,11 +107,11 @@ void	*start_dinner(void *arg)
 			break ;
 		}
 		pthread_mutex_lock(philo->l_fork);
+		pthread_mutex_lock(philo->r_fork);
+		if (!philo->data->dead)
+			break ;
 		pthread_mutex_lock(&philo->data->write);
 		printf("%ldms \033[90mphilo %d \033[93mhas taken a fork\033[0m\n", curenttime(philo->start), philo->id);
-		pthread_mutex_unlock(&philo->data->write);
-		pthread_mutex_lock(philo->r_fork);
-		pthread_mutex_lock(&philo->data->write);
 		printf("%ldms \033[90mphilo %d \033[93mhas taken a fork\033[0m\n", curenttime(philo->start), philo->id);
 		pthread_mutex_unlock(&philo->data->write);
 		death_time = eating(philo, death_time);
@@ -116,7 +125,8 @@ void	*start_dinner(void *arg)
 				break ;
 		}
 	}
-	philo->data->dead = 0;
-	printf("end of while\n");
+	pthread_mutex_unlock(philo->r_fork);
+	pthread_mutex_unlock(philo->l_fork);
+	pthread_mutex_unlock(&philo->data->write);
 	return (NULL);
 }
