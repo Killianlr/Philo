@@ -38,6 +38,7 @@ typedef struct s_data
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	lock;
 	pthread_mutex_t	write;
+	pthread_mutex_t	mut_death;
 }			t_data;
 
 typedef struct s_philo
@@ -53,6 +54,7 @@ typedef struct s_philo
 	pthread_mutex_t	lock;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	mut_death;
 	struct s_philo	*next;
 }			t_philo;
 

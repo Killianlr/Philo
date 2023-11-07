@@ -17,6 +17,7 @@ void	print_info(t_data *data, t_philo *philo)
 	int	i;
 
 	i = 0;
+	(void)i;
 	printf("------DATA------\n");
 	printf("number of philo = %d, death time = %ldms, eat_time = %ldms, sleep time = %ldms\n", data->philo_nb, data->death_time, data->eat_time, data->sleep_time);
 	if (data->meal_nb)

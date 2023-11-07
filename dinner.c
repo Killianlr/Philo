@@ -20,8 +20,18 @@ long	int	curenttime(long int start)
 
 int	checkdeath(long int death_time, long int curent_time)
 {
+	//check if I'M 		dead
 	if (death_time < curent_time)
+	{
 		return (1);
+	}
+
+	//mutex lock
+
+	//check if SOMEONE 	dead
+
+
+	//mutex unlock
 	return (0);
 }
 
@@ -90,6 +100,20 @@ long int	thinking(t_philo *philo, long int death_time)
 	return (death_time);
 }
 
+/* fonction print
+
+	check si mort
+	lock mutex write
+
+	write
+
+	unlock mutex de write
+
+
+*/
+
+
+//mutex a chaque fois que tu check data ou alors avoir un mutex par variable 
 void	*start_dinner(void *arg)
 {
 	t_philo	*philo;
@@ -99,6 +123,8 @@ void	*start_dinner(void *arg)
 	philo = (t_philo *)arg;
 	gettimeofday(&start, NULL);
 	death_time = philo->time_to_die;
+	if (philo->id % 2 == 0)
+		usleep(1000);
 	while(philo->eat_count != philo->data->meal_nb && philo->data->dead)
 	{
 		if (death_time == -1)

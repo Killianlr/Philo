@@ -43,6 +43,8 @@ int	init_mutex(t_data *data)
 		return (0);
 	if (pthread_mutex_init(&data->write, NULL) != 0)
 		return (0);
+		if (pthread_mutex_init(&data->mut_death, NULL) != 0)
+		return (0);
 	return (1);
 }
 
@@ -54,10 +56,11 @@ void	init_philo(t_data *data, t_philo *philo, int i)
 	philo->time_to_die = data->death_time;
 	philo->data = data;
 	philo->start = data->philo->start;
+	philo->mut_death = data->mut_death;
 	if (philo->id == 1)
 	{
-		philo->l_fork = &data->fork[data->philo_nb - 1];
-		philo->r_fork = &data->fork[0];
+		philo->l_fork = &data->fork[philo->id - 1];
+		philo->r_fork = &data->fork[data->philo_nb - 1];
 	}
 	else
 	{
