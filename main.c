@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:38:31 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/10/31 14:26:55 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/11/07 11:33:33 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	main(int ac, char **av)
 	print_info(data, philo);
 	if (!init_thread(data))
 		return (1);
+	printf("\033[92mEVERYONE HAS TO EAT\033[0m\n");
 	// tamere();
 	// if (!start_dinner(philo))
 	// 	printf("someone just die\n");

@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 14:06:27 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/10/31 14:42:11 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/11/07 12:34:10 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->meal_nb = -1;
 	if (ac == 6)
 		data->meal_nb = ft_atoi_long(av[5]);
-	data->dead = 0;
+	data->dead = 1;
 	data->start_time = 0;
 }
 
@@ -56,8 +56,8 @@ void	init_philo(t_data *data, t_philo *philo, int i)
 	philo->start = data->philo->start;
 	if (philo->id == 1)
 	{
-		philo->l_fork = &data->fork[data->philo_nb - 1];
-		philo->r_fork = &data->fork[0];
+		philo->r_fork = &data->fork[data->philo_nb - 1];
+		philo->l_fork = &data->fork[0];
 	}
 	else
 	{

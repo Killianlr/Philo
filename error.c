@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:23:09 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/10/27 14:43:27 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/11/07 09:39:01 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ int    free_mutex(t_data *data, char *msg)
         pthread_mutex_destroy(&data->fork[i]);
         i++;
     }
-    if (&data->lock)
-        pthread_mutex_destroy(&data->lock);
-    if (&data->write)
-        pthread_mutex_destroy(&data->write);
+    pthread_mutex_destroy(&data->lock);
+    pthread_mutex_destroy(&data->write);
     free(data);
     printf("%s\n", msg);
     return (1);
