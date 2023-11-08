@@ -36,21 +36,7 @@ int	checkdeath(long int death_time, long int curent_time, t_philo *philo)
 	return (0);
 }
 
-int	take_fork(t_philo *philo, long int death_time)
-{
-	pthread_mutex_lock(philo->l_fork);
-	pthread_mutex_lock(philo->r_fork);
-	pthread_mutex_lock(&philo->data->lock);
-	if (checkdeath(death_time, curenttime(philo->start), philo))
-		return (1);
-	pthread_mutex_lock(&philo->data->write);
-	printf("%ldms \033[90mphilo %d \033[93mhas taken a fork\033[0m\n", curenttime(philo->start), philo->id);
-	printf("%ldms \033[90mphilo %d \033[93mhas taken a fork\033[0m\n", curenttime(philo->start), philo->id);
-	pthread_mutex_unlock(&philo->data->write);
-	return (0);
-}
-
-long int	eating(t_philo *philo, long int death_time)
+long int write_trhead(t_philo *philo, long int death_time, char *msg)
 {
 	pthread_mutex_lock(&philo->data->write);
 	pthread_mutex_lock(&philo->data->lock);
@@ -59,8 +45,25 @@ long int	eating(t_philo *philo, long int death_time)
 		pthread_mutex_unlock(&philo->data->write);
 		return (-1);
 	}
-	printf("%ldms \033[90mphilo %d \033[92mis eating\033[0m\n", curenttime(philo->start), philo->id);
+	printf("%ldms \033[90mphilo %d \033%s\033[0m\n", curenttime(philo->start), philo->id, msg);
 	pthread_mutex_unlock(&philo->data->write);
+	return (death_time);
+}
+
+int	take_fork(t_philo *philo, long int death_time)
+{
+	pthread_mutex_lock(philo->l_fork);
+	pthread_mutex_lock(philo->r_fork);
+	write_trhead(philo, death_time, "[93mhas taken a fork");
+	write_trhead(philo, death_time, "[93mhas taken a fork");
+	return (0);
+}
+
+
+
+long int	eating(t_philo *philo, long int death_time)
+{
+	death_time = write_trhead(philo, death_time, "[92mis eating");
 	philo->eat_count ++;
 	usleep(philo->data->eat_time * 1000);
 	death_time = curenttime(philo->start) + philo->time_to_die;
@@ -71,30 +74,14 @@ long int	eating(t_philo *philo, long int death_time)
 
 long int	sleeping(t_philo *philo, long int death_time)
 {
-	pthread_mutex_lock(&philo->data->write);
-	pthread_mutex_lock(&philo->data->lock);
-	if (checkdeath(death_time, curenttime(philo->start), philo))
-	{
-		pthread_mutex_unlock(&philo->data->write);
-		return (-1);
-	}
-	printf("%ldms \033[90mphilo %d \033[94mis sleeping\033[0m\n", curenttime(philo->start), philo->id);
-	pthread_mutex_unlock(&philo->data->write);
+	death_time = write_trhead(philo, death_time, "[94mis sleeping");
 	usleep(philo->data->sleep_time * 1000);
 	return (death_time);
 }
 
 long int	thinking(t_philo *philo, long int death_time)
 {
-	pthread_mutex_lock(&philo->data->write);
-	pthread_mutex_lock(&philo->data->lock);
-	if (checkdeath(death_time, curenttime(philo->start), philo))
-	{
-		pthread_mutex_unlock(&philo->data->write);
-		return (-1);
-	}
-	printf("%ldms \033[90mphilo %d \033[95mis thinking\033[0m\n", curenttime(philo->start), philo->id);
-	pthread_mutex_unlock(&philo->data->write);
+	death_time = write_trhead(philo, death_time, "[91mis thinking");
 	return (death_time);
 }
 
