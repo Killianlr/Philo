@@ -21,7 +21,7 @@ void	init_data(t_data *data, int ac, char **av)
 	data->meal_nb = -1;
 	if (ac == 6)
 		data->meal_nb = ft_atoi_long(av[5]);
-	data->dead = 0;
+	data->dead = 1;
 	data->start_time = 0;
 }
 
@@ -56,8 +56,8 @@ void	init_philo(t_data *data, t_philo *philo, int i)
 	philo->start = data->philo->start;
 	if (philo->id == 1)
 	{
-		philo->l_fork = &data->fork[data->philo_nb - 1];
-		philo->r_fork = &data->fork[0];
+		philo->l_fork = &data->fork[philo->id - 1];
+		philo->r_fork = &data->fork[data->philo_nb - 1];
 	}
 	else
 	{

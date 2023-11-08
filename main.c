@@ -12,21 +12,21 @@
 
 # include "philo.h"
 
-void	tamere(void)
+void	ft_end(t_data *data, t_philo *philo)
 {
-	struct timeval start;
-	struct timeval end;
-	long	int	diff;
+	int	i;
+	t_philo	*tmp;
 
-	gettimeofday(&start, NULL);
-	usleep(10000);
-	gettimeofday(&end, NULL);
-	diff = (end.tv_usec - start.tv_usec) * 1e-3;
-	printf("diff time = %ld\n", diff);
-	printf("start sec = %ld\n", start.tv_sec);
-	printf("end sec = %ld\n", end.tv_sec);
-	printf("start usec = %ld\n", start.tv_usec);
-	printf("end usec = %ld\n", end.tv_usec);
+	i = data->philo_nb;
+	while (i--)
+	{
+		tmp = philo->next;
+		free(philo);
+		philo = tmp;
+	}
+	free(philo);
+	free(data->fork);
+	free(data);
 }
 
 int	main(int ac, char **av)
@@ -55,8 +55,6 @@ int	main(int ac, char **av)
 	print_info(data, philo);
 	if (!init_thread(data))
 		return (1);
-	// tamere();
-	// if (!start_dinner(philo))
-	// 	printf("someone just die\n");
+	ft_end(data, philo);
 	return (0);
 }
