@@ -6,15 +6,15 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:38:31 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/10/31 14:26:55 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:13:14 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
 void	ft_end(t_data *data, t_philo *philo)
 {
-	int	i;
+	int		i;
 	t_philo	*tmp;
 
 	i = data->philo_nb;
@@ -34,27 +34,23 @@ int	main(int ac, char **av)
 	t_data	*data;
 	t_philo	*philo;
 
-	if (ac < 5 || ac > 6)
-		return (printf("Wrong number of arguments\n"));
-	if (!ft_is_number(av))
-		return (printf("invalid argument\n"));
-	if (!ft_check_int(ac, av))
-		return (printf("error int overflow\n"));
+	if (!check_params(ac, av))
+		return (1);
 	data = (t_data *)malloc(sizeof(t_data));
-	if(!data)
-		return (printf("error malloc data\n"));
+	if (!data)
+		return (printf("error malloc data"));
 	init_data(data, ac, av);
 	if (!init_mutex(data))
-		return (free_mutex(data, "error mutex\n"));
+		return (free_mutex(data, "error mutex"));
 	philo = malloc(sizeof(t_philo));
 	if (!philo)
-		return (free_data(data, "error malloc philo\n"));
+		return (free_data(data, "error malloc philo"));
 	philo = create_philo(data, philo);
 	if (!philo)
-		return (free_philo(data, philo, "error malloc philo\n"));
-	print_info(data, philo);
+		return (free_philo(data, philo, "error malloc philo"));
+	print_info(data);
 	if (!init_thread(data))
-		return (1);
+		return (error_thread(data, philo, "error thread"));
 	ft_end(data, philo);
 	return (0);
 }

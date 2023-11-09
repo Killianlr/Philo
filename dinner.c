@@ -6,66 +6,27 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 14:09:57 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/10/31 14:19:50 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:11:51 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
-
-
-long	int	curenttime(long int start)
-{
-	return (get_time() - start);
-}	
-
-int	checkdeath(long int death_time, long int curent_time, t_philo *philo)
-{
-	if (!philo->data->dead)
-	{
-		pthread_mutex_unlock(&philo->data->lock);
-		return (1);
-	}
-	if (death_time < curent_time)
-	{
-		printf("%ldms \033[90mphilo %d \033[91mdied\033[0m\n", curenttime(philo->start), philo->id);
-		philo->data->dead = 0;
-		pthread_mutex_unlock(&philo->data->lock);
-		return (1);
-	}
-	pthread_mutex_unlock(&philo->data->lock);
-	return (0);
-}
-
-long int write_trhead(t_philo *philo, long int death_time, char *msg)
-{
-	pthread_mutex_lock(&philo->data->write);
-	pthread_mutex_lock(&philo->data->lock);
-	if (checkdeath(death_time, curenttime(philo->start), philo))
-	{
-		pthread_mutex_unlock(&philo->data->write);
-		return (-1);
-	}
-	printf("%ldms \033[90mphilo %d \033%s\033[0m\n", curenttime(philo->start), philo->id, msg);
-	pthread_mutex_unlock(&philo->data->write);
-	return (death_time);
-}
+#include "philo.h"
 
 int	take_fork(t_philo *philo, long int death_time)
 {
 	pthread_mutex_lock(philo->l_fork);
 	pthread_mutex_lock(philo->r_fork);
-	write_trhead(philo, death_time, "[93mhas taken a fork");
-	write_trhead(philo, death_time, "[93mhas taken a fork");
+	check_write(philo, death_time, "[93mhas taken a fork");
+	check_write(philo, death_time, "[93mhas taken a fork");
 	return (0);
 }
 
-
-
 long int	eating(t_philo *philo, long int death_time)
 {
-	death_time = write_trhead(philo, death_time, "[92mis eating");
+	death_time = check_write(philo, death_time, "[92mis eating");
 	philo->eat_count ++;
-	usleep(philo->data->eat_time * 1000);
+	death_time = curenttime(philo->start) + philo->time_to_die;
+	death_time = my_sleep(death_time, philo, philo->data->eat_time * 1000);
 	death_time = curenttime(philo->start) + philo->time_to_die;
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
@@ -74,22 +35,22 @@ long int	eating(t_philo *philo, long int death_time)
 
 long int	sleeping(t_philo *philo, long int death_time)
 {
-	death_time = write_trhead(philo, death_time, "[94mis sleeping");
-	usleep(philo->data->sleep_time * 1000);
+	death_time = check_write(philo, death_time, "[94mis sleeping");
+	death_time = my_sleep(death_time, philo, philo->data->sleep_time * 1000);
 	return (death_time);
 }
 
 long int	thinking(t_philo *philo, long int death_time)
 {
-	death_time = write_trhead(philo, death_time, "[91mis thinking");
+	death_time = check_write(philo, death_time, "[95mis thinking");
 	return (death_time);
 }
 
 void	*start_dinner(void *arg)
 {
-	t_philo	*philo;
+	t_philo			*philo;
 	struct timeval	start;
-	long	int	death_time;
+	long int		death_time;
 
 	philo = (t_philo *)arg;
 	gettimeofday(&start, NULL);

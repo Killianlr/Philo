@@ -6,7 +6,7 @@
 #    By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 13:33:25 by kle-rest          #+#    #+#              #
-#    Updated: 2023/10/31 14:10:47 by kle-rest         ###   ########.fr        #
+#    Updated: 2023/11/09 11:49:52 by kle-rest         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@ NAME = philo
 
 SOURCES = main.c \
 			parsing.c \
-			atoi.c \
 			philo.c \
 			print.c \
 			utiles.c \

@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 14:06:27 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/10/31 14:42:11 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:12:49 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ int	init_mutex(t_data *data)
 		i++;
 	}
 	if (pthread_mutex_init(&data->lock, NULL) != 0)
-		return (0);
-	if (pthread_mutex_init(&data->write, NULL) != 0)
 		return (0);
 	return (1);
 }
@@ -77,7 +75,7 @@ t_philo	*create_philo(t_data *data, t_philo *philo)
 	while (i <= data->philo_nb)
 	{
 		philo->next = malloc(sizeof(t_philo));
-		if(!philo)
+		if (!philo)
 			return (NULL);
 		philo = philo->next;
 		init_philo(data, philo, i);
@@ -90,11 +88,11 @@ t_philo	*create_philo(t_data *data, t_philo *philo)
 int	init_thread(t_data *data)
 {
 	t_philo	*philo;
-	int	i;
+	int		i;
 
 	philo = data->philo;
 	i = 0;
-	while(philo && i < philo->data->philo_nb)
+	while (philo && i < philo->data->philo_nb)
 	{
 		if (pthread_create(&philo->th, NULL, &start_dinner, philo) != 0)
 			return (0);
