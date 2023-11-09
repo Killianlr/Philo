@@ -14,6 +14,8 @@
 
 int	take_fork(t_philo *philo, long int death_time)
 {
+	pthread_mutex_lock(&philo->data->lock);
+	
 	pthread_mutex_lock(philo->l_fork);
 	pthread_mutex_lock(philo->r_fork);
 	check_write(philo, death_time, "[93mhas taken a fork");
@@ -26,7 +28,7 @@ long int	eating(t_philo *philo, long int death_time)
 	death_time = check_write(philo, death_time, "[92mis eating");
 	philo->eat_count ++;
 	death_time = curenttime(philo->start) + philo->time_to_die;
-	death_time = my_sleep(death_time, philo, philo->data->eat_time * 1000);
+	death_time = my_sleep(death_time, philo, curenttime(philo->start) + philo->data->eat_time);
 	death_time = curenttime(philo->start) + philo->time_to_die;
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
@@ -36,7 +38,7 @@ long int	eating(t_philo *philo, long int death_time)
 long int	sleeping(t_philo *philo, long int death_time)
 {
 	death_time = check_write(philo, death_time, "[94mis sleeping");
-	death_time = my_sleep(death_time, philo, philo->data->sleep_time * 1000);
+	death_time = my_sleep(death_time, philo, curenttime(philo->start) + philo->data->sleep_time);
 	return (death_time);
 }
 
@@ -56,7 +58,7 @@ void	*start_dinner(void *arg)
 	gettimeofday(&start, NULL);
 	death_time = philo->time_to_die;
 	if (philo->id % 2 == 0)
-		usleep(100);
+		usleep(1);
 	while (philo->eat_count != philo->data->meal_nb && philo->data->dead)
 	{
 		if (take_fork(philo, death_time))

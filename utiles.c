@@ -46,17 +46,16 @@ int	checkdeath(long int death_time, long int curent_time, t_philo *philo)
 
 long int	my_sleep(long int death_time, t_philo *philo, long int u_sec)
 {
-	u_sec = u_sec / 10000;
-	while (u_sec)
+	while (u_sec > curenttime(philo->start))
 	{
-		usleep(10000);
+		usleep(1000);
 		pthread_mutex_lock(&philo->data->lock);
 		if (checkdeath(death_time, curenttime(philo->start), philo))
 		{
 			pthread_mutex_unlock(&philo->data->lock);
 			return (-1);
 		}
-		u_sec--;
+		//printf("curenttime = %ld ; usec = %ld\n", curenttime(philo->start), u_sec);
 	}
 	return (death_time);
 }

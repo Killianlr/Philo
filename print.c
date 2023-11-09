@@ -14,14 +14,12 @@
 
 void	print_info(t_data *data)
 {
-	int	i;
-
-	i = 0;
 	printf("------PARAMS------\n");
 	if (data->meal_nb > 0)
 		printf("number of philo = %d, death time = %ldms, eat_time = %ldms, sleep time = %ldms meal number = %d\n",
 		 data->philo_nb, data->death_time, data->eat_time, data->sleep_time, data->meal_nb);
 	else
-		printf("number of philo = %d, death time = %ldms, eat_time = %ldms, sleep time = %ld\n",
+		printf("number of philo = %d, death time = %ldms, eat_time = %ldms, sleep time = %ldms\n",
 		data->philo_nb, data->death_time, data->eat_time, data->sleep_time);
+	printf("\n");
 }
