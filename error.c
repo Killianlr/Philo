@@ -17,12 +17,14 @@ int free_mutex(t_data *data, char *msg)
     int i;
 
     i = 0;
-    while (&data->fork[i])
+    while (&data->fork[i] && &data->philock[i])
     {
         pthread_mutex_destroy(&data->fork[i]);
+        pthread_mutex_destroy(&data->philock[i]);
         i++;
     }
-    pthread_mutex_destroy(&data->lock);
+    pthread_mutex_destroy(&data->write);
+    pthread_mutex_destroy(&data->death);
     free(data);
     printf("%s\n", msg);
     return (1);

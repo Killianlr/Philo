@@ -39,7 +39,8 @@ int	main(int ac, char **av)
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
 		return (printf("error malloc data"));
-	init_data(data, ac, av);
+	if (init_data(data, ac, av))
+		return (free_data(data, ""));
 	if (!init_mutex(data))
 		return (free_mutex(data, "error mutex"));
 	philo = malloc(sizeof(t_philo));
