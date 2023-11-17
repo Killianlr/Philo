@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 14:06:27 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/11/09 12:12:49 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/11/17 16:25:38 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,25 +103,25 @@ t_philo	*create_philo(t_data *data, t_philo *philo)
 
 void	end(t_philo *philo, int philo_full)
 {
-	//pthread_mutex_lock(&philo->data->write);
-	//pthread_mutex_lock(&philo->data->death);
+	pthread_mutex_lock(&philo->data->death);
 	*philo->is_dead = 1;
+	pthread_mutex_unlock(&philo->data->death);
 	if (philo_full != philo->data->philo_nb)
 	{
+		pthread_mutex_lock(&philo->data->write);
 		printf("%ldms \033[90mphilo %d \033[91mdied\033[0m\n",
 			curenttime(philo->start_time), philo->id);
+		pthread_mutex_unlock(&philo->data->write);
 	}
-	//pthread_mutex_unlock(&philo->data->death);
-	//pthread_mutex_unlock(&philo->data->write);
 }
 
 int		check_death(t_philo *philo)
 {
 	int	dying;
 
-	//pthread_mutex_lock(&philo->data->death);
+	pthread_mutex_lock(&philo->data->death);
 	dying = *philo->is_dead;
-	//pthread_mutex_unlock(&philo->data->death);
+	pthread_mutex_unlock(&philo->data->death);
 	return (dying);
 }
 
@@ -134,7 +134,7 @@ void	*funeral(void *arg)
 	philo_full = 0;
 	while (philo && !check_death(philo))
 	{
-	//	pthread_mutex_lock(&philo->philock);
+		pthread_mutex_lock(&philo->philock);
 		if (philo->id == 1)
 			philo_full = 0;
 		if (philo->eat_count >= philo->data->meal_nb)
@@ -143,7 +143,7 @@ void	*funeral(void *arg)
 			&& philo->eat_count != philo->data->meal_nb)
 				|| philo_full == philo->data->meal_nb)
 				end(philo, philo_full);
-	//	pthread_mutex_unlock(&philo->philock);
+		pthread_mutex_unlock(&philo->philock);
 		philo = philo->next;
 	}
 	return (NULL);

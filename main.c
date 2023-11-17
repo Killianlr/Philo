@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:38:31 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/11/09 12:13:14 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/11/17 16:31:11 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	ft_end(t_data *data, t_philo *philo)
 	int		i;
 	t_philo	*tmp;
 
-	i = data->philo_nb;
-	while (i--)
+	i = 0;
+	while (philo && i <= data->philo_nb)
 	{
 		tmp = philo->next;
 		free(philo);
 		philo = tmp;
+		i++;
 	}
-	free(philo);
 	free(data->fork);
 	free(data);
 }

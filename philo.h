@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:37:17 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/11/09 12:24:10 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:21:30 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ long int	curenttime(long int start);
 void		ft_end(t_data *data, t_philo *philo);
 int			check_death(t_philo *philo);
 int			say(t_philo *philo, char *str);
+int			my_sleep(t_philo *philo, long int sleep_time);
+
 
 
 #endif
