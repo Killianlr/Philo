@@ -36,7 +36,7 @@ void	*start_dinner(void *arg)
 	
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(&philo->philock);
-	while (philo->eat_count != philo->data->meal_nb && !check_death(philo))
+	while (!check_death(philo))
 	{
 		pthread_mutex_unlock(&philo->philock);
 		pthread_mutex_lock(philo->l_fork);

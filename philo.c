@@ -139,10 +139,13 @@ void	*funeral(void *arg)
 			philo_full = 0;
 		if (philo->eat_count >= philo->data->meal_nb)
 			philo_full++;
-		if ((philo->time_to_die < curenttime(philo->start_time)
-			&& philo->eat_count != philo->data->meal_nb)
-				|| philo_full == philo->data->meal_nb)
+
+
+		if ((philo->time_to_die < curenttime(philo->start_time))
+			|| philo_full == philo->data->philo_nb)
 				end(philo, philo_full);
+
+
 		pthread_mutex_unlock(&philo->philock);
 		philo = philo->next;
 	}

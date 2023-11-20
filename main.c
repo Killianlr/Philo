@@ -16,9 +16,9 @@ void	ft_end(t_data *data, t_philo *philo)
 {
 	int		i;
 	t_philo	*tmp;
-
+	
 	i = 0;
-	while (philo && i <= data->philo_nb)
+	while (philo && i < data->philo_nb)
 	{
 		tmp = philo->next;
 		free(philo);
@@ -26,6 +26,7 @@ void	ft_end(t_data *data, t_philo *philo)
 		i++;
 	}
 	free(data->fork);
+	free(data->philock);
 	free(data);
 }
 

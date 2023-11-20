@@ -23,7 +23,7 @@ SOURCES = main.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 
 $(NAME) : $(OBJECTS)
 		$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) -lpthread
