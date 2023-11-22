@@ -61,10 +61,9 @@ static int	init_mutex_tab(pthread_mutex_t *mutex, int i)
 	{
 		if (s == 5)
 		{
-			if (pthread_mutex_init(&mutex[i], NULL) == 0)
-				return (s);
+			return (s);
 		}
-		if (pthread_mutex_init(&mutex[i], NULL) != 0)
+		if (pthread_mutex_init(&mutex[s], NULL) != 0)
 			return (s);
 		s++;
 	}
@@ -80,14 +79,17 @@ static int	init_mutex2(t_data *data, int i)
 	mi = init_mutex_tab(data->fork, i);
 	if (mi != i)
 	{
-		while (mi--)
+		while (--mi)
+		{
+			printf("mi = %d\n", mi);
 			pthread_mutex_destroy(&data->fork[mi]);
+		}
 		return (0);
 	}
 	mi = init_mutex_tab(data->philock, i);
 	if (mi != i)
 	{
-		while (mi--)
+		while (--mi)
 			pthread_mutex_destroy(&data->philock[mi]);
 		return (0);
 	}

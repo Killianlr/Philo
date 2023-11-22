@@ -14,6 +14,11 @@
 
 int	free_mutex(t_data *data, char *msg)
 {
+	if (!data->fork)
+	{
+		free(data);
+		return (1);
+	}
 	if (!data->philock)
 	{
 		free(data->fork);
@@ -25,7 +30,7 @@ int	free_mutex(t_data *data, char *msg)
 		pthread_mutex_destroy(&data->write);
 	if (data->deathon)
 		pthread_mutex_destroy(&data->death);
-	free(data);
+	free_data(data, "");
 	printf("%s\n", msg);
 	return (1);
 }
