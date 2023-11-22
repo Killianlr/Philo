@@ -38,8 +38,10 @@ int	free_mutex(t_data *data, char *msg)
 int	free_data(t_data *data, char *msg)
 {
 	printf("%s", msg);
-	free(data->fork);
-	free(data->philock);
+	if (data->fork)
+		free(data->fork);
+	if (data->philock)
+		free(data->philock);
 	free(data);
 	return (1);
 }
@@ -57,9 +59,7 @@ int	free_philo(t_data *data, t_philo *philo, char *msg)
 		philo = philo->next;
 		free(tmp);
 	}
-	free(data->fork);
-	free(data->philock);
-	free(data);
+	free_data(data, "");
 	return (1);
 }
 

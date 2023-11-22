@@ -21,10 +21,14 @@ void	ft_free_end(t_data *data, t_philo *philo)
 	while (philo && i < data->philo_nb)
 	{
 		tmp = philo->next;
+		pthread_mutex_destroy(&data->philock[i]);
+		pthread_mutex_destroy(&data->fork[i]);
 		free(philo);
 		philo = tmp;
 		i++;
 	}
+	pthread_mutex_destroy(&data->write);
+	pthread_mutex_destroy(&data->death);
 	free(data->fork);
 	free(data->philock);
 	free(data);

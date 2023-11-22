@@ -14,11 +14,12 @@ NAME = philo
 
 SOURCES = main.c \
 			parsing.c \
-			philo.c \
+			init_val.c \
 			utiles.c \
 			routine.c \
 			error.c \
 			thread.c \
+			mutex.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 
