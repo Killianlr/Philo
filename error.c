@@ -14,20 +14,13 @@
 
 int	free_mutex(t_data *data, char *msg)
 {
-	int	i;
-
-	i = 0;
-	while (data->fork && &data->fork[i])
+	if (!data->philock)
 	{
-		pthread_mutex_destroy(&data->fork[i]);
-		i++;
+		free(data->fork);
+		free(data);
+		return (1);
 	}
-	i = 0;
-	while (data->philock && &data->philock[i])
-	{
-		pthread_mutex_destroy(&data->philock[i]);
-		i++;
-	}
+	printf("ici\n");
 	if (data->writeon)
 		pthread_mutex_destroy(&data->write);
 	if (data->deathon)
