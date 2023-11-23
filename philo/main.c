@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:38:31 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/11/21 18:18:56 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:09:38 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_free_end(t_data *data, t_philo *philo)
 	free(data);
 }
 
-int	check_philo_nb(t_philo *philo)
+static int	check_philo_nb(t_philo *philo)
 {
 	t_philo	*tmp;
 	int		i;

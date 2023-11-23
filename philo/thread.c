@@ -6,13 +6,13 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:23:09 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/11/21 18:15:27 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:11:18 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	init_philo_impair(t_philo *philo)
+static int	init_philo_impair(t_philo *philo)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ int	init_philo_impair(t_philo *philo)
 	return (1);
 }
 
-int	init_philo_pair(t_philo *philo)
+static int	init_philo_pair(t_philo *philo)
 {
 	int	i;
 

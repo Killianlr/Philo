@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:44:14 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/11/09 12:16:05 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:14:55 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ long int	ft_atoi_long(const char *nptr)
 	return (s * nb);
 }
 
-int	ft_strlen(char *str)
+static int	ft_strlen(char *str)
 {
 	int	i;
 
@@ -40,7 +40,7 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-int	ft_is_number(char **av)
+static int	ft_is_number(char **av)
 {
 	int	i;
 	int	j;
@@ -60,7 +60,7 @@ int	ft_is_number(char **av)
 	return (1);
 }
 
-int	ft_check_int(int ac, char **av)
+static int	ft_check_int(int ac, char **av)
 {
 	unsigned long long	tmp;
 

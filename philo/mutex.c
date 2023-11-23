@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mutex.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/23 12:04:19 by kle-rest          #+#    #+#             */
+/*   Updated: 2023/11/23 12:04:31 by kle-rest         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 static int	init_mutex3(t_data *data)
@@ -38,7 +50,7 @@ static int	init_mutex2(t_data *data, int i)
 	if (mi != i)
 	{
 		while (--mi)
-			pthread_mutex_destroy(&data->fork[mi]); 
+			pthread_mutex_destroy(&data->fork[mi]);
 		return (0);
 	}
 	mi = init_mutex_tab(data->philock, i);

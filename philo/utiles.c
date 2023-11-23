@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:00:54 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/11/21 15:41:30 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:03:24 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	end(t_philo *philo, int philo_full)
 	if (philo_full != philo->data->philo_nb)
 	{
 		pthread_mutex_lock(&philo->data->write);
-		printf("%ldms \033[90mphilo %d \033[91mdied\033[0m\n",
+		printf("%ld \033[90mphilo %d \033[91mdied\033[0m\n",
 			curenttime(philo->start_time), philo->id);
 		pthread_mutex_unlock(&philo->data->write);
 	}
