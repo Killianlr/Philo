@@ -12,12 +12,13 @@ Pour manger, un philosophe doit obtenir deux fourchettes (une à sa gauche et un
 
 Le programme prend en arguments :
 
-./philo <time_to_die> <time_to_eat> <time_to_sleep> [nb_times_each_philo_must_eat]
+./philo <philo_number> <time_to_die> <time_to_eat> <time_to_sleep> [nb_times_each_philo_must_eat]
 
 ### exemple :
 ```
-./philo 800 200 200 12
+./philo 6 800 200 200 12
 ```
+philo_number : nombre de philosopher 
 
 time_to_die : temps en ms avant qu’un philosophe meure s’il ne mange pas
 
