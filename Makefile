@@ -12,27 +12,26 @@
 
 NAME = philo
 
-SOURCES = main.c \
-			parsing.c \
-			init_val.c \
-			utiles.c \
-			routine.c \
-			error.c \
-			thread.c \
-			mutex.c \
+SRC_DIR = srcs
+OBJ_DIR = objs
 
-OBJECTS = $(SOURCES:.c=.o)
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
-$(NAME) : $(OBJECTS)
-		$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) -lpthread
+$(NAME) : $(OBJS)
+		$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lpthread
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+		@mkdir -p $(OBJ_DIR)
+		$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
 clean:
-		rm -f $(OBJECTS)
+		rm -rf $(OBJ_DIR)
 
 fclean: clean
 		rm -f $(NAME)
